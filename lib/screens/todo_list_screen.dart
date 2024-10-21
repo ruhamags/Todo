@@ -40,7 +40,18 @@ class _TodoListScreenState extends State<TodoListScreen> {
               task.isCompleted = value ?? false;
             });
           },
+          onDelete: () {
+            setState(() {
+              tasks.removeAt(index);
+            }
+            );
+          },
+          onEdit:(){
+              _editTask(task, index);
+            },
+          
         );
+        
       },
     );
   }
@@ -55,7 +66,18 @@ class _TodoListScreenState extends State<TodoListScreen> {
             });
           },
         ),
+
       ),
+    );
+  }
+  void _editTask(Task task, int index) async{
+  final result =  await Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => AddTaskScreen(
+        onSave: (updatedTaskTitle){
+          setState(() {
+            tasks[index].title = updatedTaskTitle;
+          });
+        }))
     );
   }
 }

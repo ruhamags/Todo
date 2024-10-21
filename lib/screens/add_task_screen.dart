@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final Function(String) onSave;
+  final String? initialTitle;
 
-  AddTaskScreen({required this.onSave});
+  AddTaskScreen({required this.onSave, this.initialTitle});
+
 
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
@@ -11,12 +13,19 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final _taskController = TextEditingController();
+  @override
+  void initState(){
+    super.initState();
+    if (widget.initialTitle != null){
+      _taskController.text = widget.initialTitle!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Task'),
+        title: Text(widget.initialTitle != null ? 'Edit Task': 'Add Task'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
