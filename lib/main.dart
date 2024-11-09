@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/todo_list_screen.dart'; // Import the TodoListScreen
+import 'package:provider/provider.dart';
+import 'screens/todo_list_screen.dart';
+import 'helper/task_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,12 +10,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Todo App', // The title of your app
-      theme: ThemeData(
-        primarySwatch: Colors.blue, // Basic theme for your app
+    return ChangeNotifierProvider(
+      create: (_) => TaskProvider(),
+      child: MaterialApp(
+        title: 'Todo App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: TodoListScreen(),
       ),
-      home: TodoListScreen(), // Set TodoListScreen as the home screen
     );
   }
 }
